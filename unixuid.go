@@ -27,3 +27,21 @@ func (uidRef *UnixUID) UnmarshalText(text []byte) (err error) {
 	*uidRef = UnixUID(uid)
 	return
 }
+
+// MakeUIDIntMap returns a map of int from a slice of UnixUID.
+func MakeUIDIntMap(uidSlice []UnixUID) (uidMap map[int]struct{}) {
+	uidMap = make(map[int]struct{})
+	for _, uid := range uidSlice {
+		uidMap[int(uid)] = struct{}{}
+	}
+	return
+}
+
+// CloneAsIntSlice returns a slice of int from a slice of UnixUID.
+func CloneAsIntSlice(uidSlice []UnixUID) (result []int) {
+	result = make([]int, len(uidSlice))
+	for idx, uid := range uidSlice {
+		result[idx] = int(uid)
+	}
+	return
+}
